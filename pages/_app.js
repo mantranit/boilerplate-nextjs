@@ -31,8 +31,6 @@ function configureStore(initialState = exampleInitialState) {
   return store;
 }
 
-// import createStore from '../utils/store';
-
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
