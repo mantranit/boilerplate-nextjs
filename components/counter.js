@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { increment, decrement, reset } from '../actions'
+import { increment, decrement, reset } from '../redux/dashboard/actions'
 
 class Counter extends Component {
   increment = () => {
@@ -36,5 +36,5 @@ class Counter extends Component {
   }
 }
 
-const mapStateToProps = ({ count }) => ({ count })
+const mapStateToProps = ({ dashboard }) => ({ count: dashboard.count })
 export default connect(mapStateToProps)(Counter)

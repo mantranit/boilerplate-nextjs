@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { loadData, startClock, tickClock } from '../actions'
+import { loadData, startClock, tickClock } from '../redux/dashboard/actions'
 import Page from '../components/page'
 
 const IndexPage = (props) => {

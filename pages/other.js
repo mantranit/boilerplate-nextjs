@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { startClock, tickClock } from '../actions'
+import { startClock, tickClock } from '../redux/dashboard/actions'
 import Page from '../components/page'
 
 const OtherPage = (props) => {

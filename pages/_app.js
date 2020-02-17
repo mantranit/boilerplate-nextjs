@@ -4,7 +4,34 @@ import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 
-import createStore from '../utils/store';
+import { applyMiddleware, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
+import rootReducer, { exampleInitialState } from '../redux/reducers';
+import rootSaga from '../redux/sagas';
+
+const bindMiddleware = middleware => {
+  if (process.env.NODE_ENV !== 'production') {
+    const { composeWithDevTools } = require('redux-devtools-extension');
+    return composeWithDevTools(applyMiddleware(...middleware));
+  }
+  return applyMiddleware(...middleware);
+}
+
+function configureStore(initialState = exampleInitialState) {
+  const sagaMiddleware = createSagaMiddleware();
+  const store = createStore(
+    rootReducer(),
+    initialState,
+    bindMiddleware([sagaMiddleware])
+  );
+
+  store.sagaTask = sagaMiddleware.run(rootSaga);
+
+  return store;
+}
+
+// import createStore from '../utils/store';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -27,4 +54,4 @@ class MyApp extends App {
   }
 }
 
-export default withRedux(createStore)(withReduxSaga(MyApp))
+export default withRedux(configureStore)(withReduxSaga(MyApp))
