@@ -17,7 +17,7 @@ const Index = () => {
 
 export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
   store.dispatch(tickClock(false))
-  if (!store.getState().placeholderData) {
+  if (!store.getState().dashboard.placeholderData) {
     store.dispatch(loadData())
     store.dispatch(END)
   }
