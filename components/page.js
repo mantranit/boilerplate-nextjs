@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux'
 import Counter from './counter'
 import Clock from './clock'
 
-function Page({ linkTo, NavigateTo, title }) {
+const Page = (props) => {
+  const { linkTo, NavigateTo, title } = props
+
   const placeholderData = useSelector((state) => state.dashboard.placeholderData)
   const error = useSelector((state) => state.dashboard.error)
   const light = useSelector((state) => state.dashboard.light)

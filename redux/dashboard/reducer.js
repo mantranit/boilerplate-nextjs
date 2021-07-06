@@ -12,7 +12,9 @@ export const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case HYDRATE: {
-      return { ...state, ...action.payload.dashboard }
+      const { dashboard } = action.payload
+      const { count, ...rest } = dashboard // keep the count
+      return { ...state, ...rest }
     }
 
     case types.FAILURE:

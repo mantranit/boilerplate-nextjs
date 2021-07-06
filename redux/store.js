@@ -13,7 +13,7 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware)
 }
 
-export const makeStore = (context) => {
+export const makeStore = () => {
   const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
     rootReducer(),
@@ -25,4 +25,4 @@ export const makeStore = (context) => {
   return store
 }
 
-export const wrapper = createWrapper(makeStore, { debug: false })
+export const wrapper = createWrapper(makeStore, { debug: true })
