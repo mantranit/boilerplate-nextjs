@@ -1,15 +1,20 @@
 import { types } from './index'
+import { HYDRATE } from 'next-redux-wrapper'
 
-export const dashboardInitialState = {
-    count: 0,
-    error: false,
-    lastUpdate: 0,
-    light: false,
-    placeholderData: null,
+export const initialState = {
+  count: 0,
+  error: false,
+  lastUpdate: 0,
+  light: false,
+  placeholderData: null,
 }
 
-function reducer(state = dashboardInitialState, action) {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case HYDRATE: {
+      return { ...state, ...action.payload.dashboard }
+    }
+
     case types.FAILURE:
       return {
         ...state,
@@ -31,7 +36,7 @@ function reducer(state = dashboardInitialState, action) {
     case types.RESET:
       return {
         ...state,
-        ...{ count: dashboardInitialState.count },
+        ...{ count: initialState.count },
       }
 
     case types.LOAD_DATA_SUCCESS:
@@ -50,5 +55,3 @@ function reducer(state = dashboardInitialState, action) {
       return state
   }
 }
-
-export default reducer

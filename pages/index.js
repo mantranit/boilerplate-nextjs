@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { END } from 'redux-saga'
+import { wrapper } from '../redux/store'
 import { loadData, startClock, tickClock } from '../redux/dashboard/actions'
 import Page from '../components/page'
 
-const IndexPage = (props) => {
+const Index = () => {
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    props.dispatch(startClock());
-  }, [])
-  
-  return (
-    <Page title="Index Page" linkTo="/other" NavigateTo="Other Page" />
-  )
+    dispatch(startClock())
+  }, [dispatch])
+
+  return <Page title="Index Page" linkTo="/other" NavigateTo="Other Page" />
 }
 
-IndexPage.getInitialProps = async (props) => {
-  const { store, isServer } = props.ctx;
-  store.dispatch(tickClock(isServer))
-
+export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
+  store.dispatch(tickClock(false))
   if (!store.getState().placeholderData) {
-    store.dispatch(loadData());
+    store.dispatch(loadData())
+    store.dispatch(END)
   }
 
-  return { isServer }
-}
+  await store.sagaTask.toPromise()
+})
 
-export default connect()(IndexPage)
+export default Index

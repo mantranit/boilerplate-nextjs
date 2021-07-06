@@ -1,13 +1,10 @@
 import { combineReducers } from 'redux';
 
-import dashboard, { dashboardInitialState } from './dashboard/reducer';
-
-export const exampleInitialState = {
-  dashboard: dashboardInitialState,
-}
+import dashboard from './dashboard/reducer';
 
 export default function createRootReducer() {
 	return combineReducers({
 		dashboard,
+		xxx: dashboard,
 	});
 }

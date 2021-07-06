@@ -1,4 +1,11 @@
-import { types } from './index';
+import { types } from './index'
+
+export function failure(error) {
+  return {
+    type: types.FAILURE,
+    error,
+  }
+}
 
 export function increment() {
   return { type: types.INCREMENT }
@@ -14,6 +21,13 @@ export function reset() {
 
 export function loadData() {
   return { type: types.LOAD_DATA }
+}
+
+export function loadDataSuccess(data) {
+  return {
+    type: types.LOAD_DATA_SUCCESS,
+    data,
+  }
 }
 
 export function startClock() {

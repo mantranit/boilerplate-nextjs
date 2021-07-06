@@ -1,23 +1,21 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { wrapper } from '../redux/store'
 import { startClock, tickClock } from '../redux/dashboard/actions'
 import Page from '../components/page'
 
-const OtherPage = (props) => {
+const Other = () => {
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    props.dispatch(startClock())
-  }, []);
+    dispatch(startClock())
+  }, [dispatch])
 
-  return (
-    <Page title="Other Page" linkTo="/" NavigateTo="Index Page" />
-  )
+  return <Page title="Other Page" linkTo="/" NavigateTo="Index Page" />
 }
 
-OtherPage.getInitialProps = async (props) => {
-  const { store, isServer } = props.ctx
-  store.dispatch(tickClock(isServer))
-  return { isServer }
-}
+export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
+  store.dispatch(tickClock(false))
+})
 
-export default connect()(OtherPage)
+export default Other
