@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 
-import { increment, decrement, reset } from '../redux/dashboard/actions'
+import { types } from '../redux/dashboard/action'
 
 const Counter = () => {
   const count = useSelector((state) => state.dashboard.count)
@@ -16,9 +16,9 @@ const Counter = () => {
       <h1>
         Count: <span>{count}</span>
       </h1>
-      <button onClick={() => dispatch(increment())}>+1</button>
-      <button onClick={() => dispatch(decrement())}>-1</button>
-      <button onClick={() => dispatch(reset())}>Reset</button>
+      <button onClick={() => dispatch({ type: types.INCREMENT })}>+1</button>
+      <button onClick={() => dispatch({ type: types.DECREMENT })}>-1</button>
+      <button onClick={() => dispatch({ type: types.RESET })}>Reset</button>
     </div>
   )
 }

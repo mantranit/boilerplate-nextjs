@@ -1,7 +1,6 @@
 import { apiGet } from '../../utils/api';
 import { all, call, delay, put, take, takeLatest } from 'redux-saga/effects'
-import { types, urls } from './index'
-import { failure, loadDataSuccess, tickClock } from './actions'
+import { types, urls, tickClock } from './action'
 
 function* runClockSaga() {
   yield take(types.START_CLOCK)
@@ -13,16 +12,22 @@ function* runClockSaga() {
 
 function* loadDataSaga() {
   try {
-    const response = yield call(apiGet, {
+    const data = yield call(apiGet, {
       path: urls.USERS
     })
-    yield put(loadDataSuccess(response))
-  } catch (err) {
-    yield put(failure(err))
+    yield put({
+      type: types.LOAD_DATA_SUCCESS,
+      data,
+    })
+  } catch (error) {
+    yield put({
+      type: types.FAILURE,
+      error,
+    })
   }
 }
 
-export default function* dashboardWatcher() {
+export default function* dashboardSaga() {
   yield all([
     call(runClockSaga),
     takeLatest(types.LOAD_DATA, loadDataSaga),

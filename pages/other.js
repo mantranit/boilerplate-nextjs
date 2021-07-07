@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { wrapper } from '../redux/store'
-import { startClock, tickClock } from '../redux/dashboard/actions'
+import { types, tickClock } from '../redux/dashboard/action'
 import Page from '../components/page'
 
 const Other = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(startClock())
+    dispatch({ type: types.START_CLOCK })
   }, [dispatch])
 
   return <Page title="Other Page" linkTo="/" NavigateTo="Index Page" />

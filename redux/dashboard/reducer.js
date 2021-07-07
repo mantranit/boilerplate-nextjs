@@ -1,4 +1,4 @@
-import { types } from './index'
+import { types } from './action'
 import { HYDRATE } from 'next-redux-wrapper'
 
 export const initialState = {
