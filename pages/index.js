@@ -15,7 +15,7 @@ const Index = () => {
   return <Page title="Index Page" linkTo="/other" NavigateTo="Other Page" />
 }
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   store.dispatch(tickClock(false))
   if (!store.getState().dashboard.placeholderData) {
     store.dispatch(loadData())

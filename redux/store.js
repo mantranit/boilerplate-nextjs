@@ -13,12 +13,19 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware)
 }
 
-export const makeStore = () => {
+export const makeStore = (callback, context) => {
   const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
     rootReducer(),
     bindMiddleware([sagaMiddleware])
   )
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () => {
+      console.log('Replacing reducers')
+      store.replaceReducer(require('./reducers').default)
+    })
+  }
 
   store.sagaTask = sagaMiddleware.run(rootSaga)
 

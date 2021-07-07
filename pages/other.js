@@ -14,7 +14,7 @@ const Other = () => {
   return <Page title="Other Page" linkTo="/" NavigateTo="Index Page" />
 }
 
-export const getStaticProps = wrapper.getStaticProps(async ({ store }) => {
+export const getStaticProps = wrapper.getStaticProps((store) => async () => {
   store.dispatch(tickClock(false))
 })
 
